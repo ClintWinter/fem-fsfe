@@ -1,7 +1,11 @@
-const http = require('http');
+const express = require('express');
+const server = require('http').createServer();
+const app = express();
 const PORT = 3000;
 
-http.createServer(function (req, res) {
-	res.write('hello from fsfe');
-	res.end();
-}).listen(3000);
+app.get('/', function (request, response) {
+	response.sendFile('index.html', {root: __dirname});
+});
+
+server.on('request', app);
+server.listen(PORT, () => { console.log(`Listening on port ${PORT}`); });
